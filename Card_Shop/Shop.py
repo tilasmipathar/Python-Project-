@@ -83,5 +83,6 @@ def Run_Shop():
 			running=False;
 		
 		pygame.display.update()
+	return (card_type[choice-1],card_def[choice-1],card_attack[choice-1])
 if __name__=="__main__":
 	Run_Shop()
