@@ -4,12 +4,21 @@ from PIL import Image
 
 pygame.init()
 
+infoObject = pygame.display.Info()
+
 size_of_map=15
 Map.Map_Gen(size_of_map)
 x=0
 y=0
-length_of_tile=64
+length_of_tile=infoObject.current_w//(size_of_map*2)
 length_of_border=length_of_tile//8
+playerX=0
+playerY=0
+for i in range(len(Map.Map)):
+	for j in range(len(Map.Map[0])):
+		if(Map.Map[i][j]==2):
+			playerY=length_of_tile*i+length_of_tile/2
+			playerX=length_of_tile*j+length_of_tile/2
 
 screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
 
