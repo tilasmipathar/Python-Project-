@@ -198,30 +198,31 @@ def Run_Battle(card_deck,screen):
 					height_displacement+=48
 			
 			Break=True
-			if(not player_turn):
-				for i in oppo_deck:
-					Break= Break and i.card_def<=0
-				if(Break and start_ticks==0):
-					start_ticks=pygame.time.get_ticks()
+			for i in oppo_deck:
+				if(i.card_def>0):
+					Break=False
+			if(Break and start_ticks==0):
+				start_ticks=pygame.time.get_ticks()
 			seconds=(pygame.time.get_ticks()-start_ticks)/1000
 			if((not start_ticks==0) and seconds>0.8):
 				running=False;
+			
 			Break=True
-			if(player_turn):
-				for i in card_deck:
-					Break= Break and i.card_def<=0
-				if(Break and start_ticks==0):
-					start_ticks=pygame.time.get_ticks()
+			for i in card_deck[0:2]:
+				if(i.card_def>0):
+					Break=False
+			if(Break and start_ticks==0):
+				start_ticks=pygame.time.get_ticks()
 			seconds=(pygame.time.get_ticks()-start_ticks)/1000
 			if((not start_ticks==0) and seconds>0.8):
 				running=False;
 			
 			pygame.display.update()
 		
-		for i in range(2):
-			if(card_deck[i].card_def<=0):
-				card_deck.remove(card_deck[i])
-			if(card_deck[i].card_def>0):
+		for i in card_deck[0:2]:
+			if(i.card_def<=0):
+				card_deck.remove(i)
+			if(i.card_def>0):
 				win=True
 	else:
 		while running:
