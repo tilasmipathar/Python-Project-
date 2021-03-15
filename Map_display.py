@@ -1,17 +1,20 @@
 import Map
 import pygame
 import random
+import math
 from PIL import Image
 from Card_Shop import Shop
 from Card_Battle import Battle
 
 pygame.init()
 
+pygame.display.set_caption("Virtual Carnival")
+
 infoObject = pygame.display.Info()
 
 #Initialization
 size_of_map=15
-no_of_games=1
+no_of_games=2
 Map.Map_Gen(size_of_map)
 Mini_Game_Pos=[]
 for i in Map.Map:
@@ -66,13 +69,25 @@ while running:
 			running=False
 	pressed_keys=pygame.key.get_pressed()
 	if pressed_keys[pygame.K_UP] and playerY-length_of_tile/16>=0 and (not Map.Map[int((playerY-length_of_tile/16)//length_of_tile)][int(playerX//length_of_tile)]==0):
-		playerY-=length_of_tile/16;
+		if(not (pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_RIGHT])):
+			playerY-=length_of_tile/16*math.sqrt(2)
+		else:
+			playerY-=length_of_tile/16
 	if pressed_keys[pygame.K_DOWN] and playerY+length_of_tile/16<size_of_map*length_of_tile and (not Map.Map[int((playerY+length_of_tile/16)//length_of_tile)][int(playerX//length_of_tile)]==0):
-		playerY+=length_of_tile/16;
+		if(not (pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_RIGHT])):
+			playerY+=length_of_tile/16*math.sqrt(2)
+		else:
+			playerY+=length_of_tile/16
 	if pressed_keys[pygame.K_LEFT] and playerX-length_of_tile/16>=0 and (not Map.Map[int(playerY//length_of_tile)][int((playerX-length_of_tile/16)//length_of_tile)]==0):
-		playerX-=length_of_tile/16;
+		if(not (pressed_keys[pygame.K_UP] or pressed_keys[pygame.K_DOWN])):
+			playerX-=length_of_tile/16*math.sqrt(2)
+		else:
+			playerX-=length_of_tile/16
 	if pressed_keys[pygame.K_RIGHT] and playerX+length_of_tile/16<size_of_map*length_of_tile*2 and (not Map.Map[int(playerY//length_of_tile)][int((playerX+length_of_tile/16)//length_of_tile)]==0):
-		playerX+=length_of_tile/16;
+		if(not (pressed_keys[pygame.K_UP] or pressed_keys[pygame.K_DOWN])):
+			playerX+=length_of_tile/16*math.sqrt(2)
+		else:
+			playerX+=length_of_tile/16
 	
 	disp_x=0
 	disp_y=0
@@ -123,20 +138,18 @@ while running:
 		UsedX=size_of_map*2
 		UsedY=size_of_map
 	elif(not(UsedX==int(playerX//length_of_tile) and UsedY==int(playerY//length_of_tile))):
+		UsedX=int(playerX//length_of_tile)
+		UsedY=int(playerY//length_of_tile)
 		if(switch==1):
-			UsedX=int(playerX//length_of_tile)
-			UsedY=int(playerY//length_of_tile)
-			if(random.random()<0.5 and coin>0):
+			card_deck.append(Shop.Run_Shop(screen,coin))
+			if(coin>0):
 				coin-=1
-				card_deck.append(Shop.Run_Shop(screen))
-			else:
-				if(len(card_deck)>2):
-					l=Battle.Run_Battle(card_deck,screen)
-					card_deck=l[0]
-					if(l[1]):
-						coin+=1
-				elif(coin>0):
-					coin-=1
-					card_deck.append(Shop.Run_Shop(screen))
+		elif(switch==2):
+			l=Battle.Run_Battle(card_deck,screen)
+			card_deck=l[0]
+			if(l[1]):
+				coin+=1
+	
+	pygame.display.set_caption("Virtual Carnival")
 	
 	pygame.display.update()
