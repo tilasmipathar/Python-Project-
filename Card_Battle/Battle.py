@@ -5,9 +5,8 @@ from PIL import Image
 pygame.init()
 
 infoObject = pygame.display.Info()#finding screen resolution
-width=infoObject.current_w*0.95
-hieght=0.95*infoObject.current_w/2
-screen=pygame.display.set_mode((int(width), int(hieght)))#Window resolution
+width=infoObject.current_w
+hieght=infoObject.current_w/2
 
 class Card:
 	def __init__(self,card_type,card_def,card_attack,card_image,cardX=0,cardY=hieght):
@@ -21,18 +20,18 @@ class Card:
 def Create_opponent():
 	deck=[]
 	card_type=int(3*random.random())
-	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load(str(card_type)+".png"),2*width/3-(pygame.image.load(str(card_type)+".png")).get_width(),hieght/3-(pygame.image.load(str(card_type)+".png")).get_width()/2))
+	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load("Card_Battle/"+str(card_type)+".png"),2*width/3-(pygame.image.load("Card_Battle/"+str(card_type)+".png")).get_width(),hieght/3-(pygame.image.load("Card_Battle/"+str(card_type)+".png")).get_width()/2))
 	card_type=int(3*random.random())
-	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load(str(card_type)+".png"),2*width/3-(pygame.image.load(str(card_type)+".png")).get_width(),2*hieght/3-(pygame.image.load(str(card_type)+".png")).get_width()/2))
+	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load("Card_Battle/"+str(card_type)+".png"),2*width/3-(pygame.image.load("Card_Battle/"+str(card_type)+".png")).get_width(),2*hieght/3-(pygame.image.load("Card_Battle/"+str(card_type)+".png")).get_width()/2))
 	return deck
 
-def Run_Battle(card_deck):
+def Run_Battle(card_deck,screen):
 	pygame.display.set_caption("Card Battle")#Window name
 	
-	card_width,card_hieght=(Image.open("0.png")).size
+	card_width,card_hieght=(Image.open("Card_Battle/"+"0.png")).size
 	
-	heading=pygame.font.Font("OldLondon.ttf",64)
-	body=pygame.font.Font("Seagram.ttf",24)
+	heading=pygame.font.Font("Card_Battle/"+"OldLondon.ttf",64)
+	body=pygame.font.Font("Card_Battle/"+"Seagram.ttf",24)
 	heading_render=heading.render("CARD BATTLE",True,(0,0,0))
 	
 	clock=pygame.time.Clock()
@@ -49,8 +48,8 @@ def Run_Battle(card_deck):
 	super_mult=1.25
 	under_mult=0.75
 	
-	((Image.open("back.png")).resize((int(width),int(hieght)))).save("back_adjusted.png")
-	background=pygame.image.load("back_adjusted.png")
+	((Image.open("Card_Battle/"+"back.png")).resize((int(width),int(hieght)))).save("Card_Battle/"+"back_adjusted.png")
+	background=pygame.image.load("Card_Battle/"+"back_adjusted.png")
 	
 	random.shuffle(card_deck)
 	for i in range(min(2,len(card_deck))):
@@ -94,8 +93,6 @@ def Run_Battle(card_deck):
 						choice1=2
 					elif(oppo_deck[1].card_def>0):
 						choice2=2
-			else:
-				print(player_turn,choice1,choice2)
 		
 		damage=0
 		if (not player_turn) and (choice1==0 or choice2==0):
@@ -107,7 +104,7 @@ def Run_Battle(card_deck):
 					elif(card_deck[j].card_def>0 and oppo_deck[i].card_def>0 and(oppo_deck[i].card_type==card_deck[j].card_type)and(oppo_deck[i].card_attack>damage)):
 						choice1=i+1
 						choice2=j+1
-					elif(card_deck[j].card_def>0 and oppo_deck[i].card_def>0 and under_melt*oppo_deck[i].card_attack>damage):
+					elif(card_deck[j].card_def>0 and oppo_deck[i].card_def>0 and under_mult*oppo_deck[i].card_attack>damage):
 						choice1=i+1
 						choice2=j+1
 		
@@ -183,14 +180,14 @@ def Run_Battle(card_deck):
 		screen.blit(heading_render,(width/2-heading_render.get_width()/2,10))
 		for i in range(0,min(2,len(card_deck))):
 			screen.blit(card_deck[i].card_image,(card_deck[i].cardX,card_deck[i].cardY))
-			screen.blit(pygame.image.load("info.png"),(card_deck[i].cardX+card_deck[i].card_image.get_width(),card_deck[i].cardY))
+			screen.blit(pygame.image.load("Card_Battle/"+"info.png"),(card_deck[i].cardX+card_deck[i].card_image.get_width(),card_deck[i].cardY))
 			hieght_displacement=0
 			for j in body_render[i]:
 				screen.blit(j,(card_deck[i].cardX+card_deck[i].card_image.get_width()+10,card_deck[i].cardY+10+hieght_displacement))
 				hieght_displacement+=48
 		for i in range(0,2):
 			screen.blit(oppo_deck[i].card_image,(oppo_deck[i].cardX,oppo_deck[i].cardY))
-			screen.blit(pygame.image.load("info.png"),(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width(),oppo_deck[i].cardY))
+			screen.blit(pygame.image.load("Card_Battle/"+"info.png"),(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width(),oppo_deck[i].cardY))
 			hieght_displacement=0
 			for j in body_render_oppo[i]:
 				screen.blit(j,(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width()+10,oppo_deck[i].cardY+10+hieght_displacement))
