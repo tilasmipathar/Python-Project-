@@ -20,7 +20,7 @@ class CarRacing:
         self.initialize()
 
     def initialize(self):
-        pygame.mixer.music.load("music.wav") 
+        pygame.mixer.music.load("Car_Racing_Game/music.wav") 
         pygame.mixer.music.play(-1,0.0)
         self.crashed = False
 
@@ -107,8 +107,6 @@ class CarRacing:
         pygame.display.update()
         self.clock.tick(60)
         sleep(1)
-        car_racing.initialize()
-        car_racing.racing_window()
 
     def back_ground_road(self):
         
