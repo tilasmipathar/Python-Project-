@@ -27,6 +27,7 @@ def space_adventure():
     WIDTH = 600
     HEIGHT = 800
     GAME_VEL = 0.3
+    running = True
     class obj:
         def __init__(self,x,y,img,xc,yc):
             self.x = x
@@ -138,7 +139,6 @@ def space_adventure():
     
     
     #Game Loop
-    running = True
     while running:
         screen.blit(bg_img,(0,0))
         score_img = score_font.render('Score:'+str(SCORE_SPACE_ADVENTURE),True,(255,255,255))
