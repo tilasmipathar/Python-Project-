@@ -42,6 +42,9 @@ def space_adventure():
     #Player
     player1 = obj(268,650,pygame.image.load('player.png'),0,0)
 
+    #PowerUP
+    power_up = obj(268,650,pygame.image.load('down.png'),0,0)
+
     #Asteroid
     asteroid_list = []
     asteroid_list.append(obj(268,16,pygame.image.load('asteroid.png'),0,0))
@@ -70,9 +73,9 @@ def space_adventure():
         player_pos_list = [60,164,268,WIDTH-224,WIDTH-124]
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player1.xc = -1
+                player1.xc = -0.8
             if event.key == pygame.K_RIGHT:
-                player1.xc = 1
+                player1.xc = 0.8
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player1.xc = 0
@@ -97,8 +100,18 @@ def space_adventure():
             global SCORE_SPACE_ADVENTURE
             SCORE_SPACE_ADVENTURE+=1
 
+    def powerUp():
+        global SCORE_SPACE_ADVENTURE
+        if(int(SCORE_SPACE_ADVENTURE%24)==0 and int(SCORE_SPACE_ADVENTURE)!=0):
+            screen.blit(power_up.img,(asteroid_list[0].x,power_up.y))
+            if(player1.x >= asteroid_list[0].x-64 and player1.x <= asteroid_list[0].x +64):
+                SCORE_SPACE_ADVENTURE+=4
+                mixer.Sound('powerup.wav').play()
+                return True
+
+    
     def collision(asteroid,player):
-        if (asteroid.y >= 605 and asteroid.y <= 650) and (player1.x >= asteroid.x-60 and player1.x <= asteroid.x+60):
+        if (asteroid.y >= 608 and asteroid.y <= 650) and (player1.x >= asteroid.x-60 and player1.x <= asteroid.x+60):
             return True
         return False
     
@@ -122,6 +135,7 @@ def space_adventure():
                         over = False
                     if event.key == pygame.K_q:
                         over = False
+                        quit()
             pygame.display.update()
     
     
@@ -149,7 +163,8 @@ def space_adventure():
                     pygame.time.delay(1500)
                     game_over()
                     pygame.display.update()
-                    
+        if(powerUp()):
+            GAME_VEL = GAME_VEL/2           
         GAME_VEL+=SCORE_SPACE_ADVENTURE/1000000
         pygame.display.update()
 if __name__=='__main__':
