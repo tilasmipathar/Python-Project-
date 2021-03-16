@@ -17,12 +17,15 @@ def game_start():
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    space_adventure()
+                    return space_adventure()
                     start = False
                 if event.key == pygame.K_q:
                     start = False
         pygame.display.update()
 def space_adventure():
+
+    global SCORE_SPACE_ADVENTURE
+    SCORE_SPACE_ADVENTURE = 0
     screen = pygame.display.set_mode((600,800))
     WIDTH = 600
     HEIGHT = 800
@@ -114,30 +117,6 @@ def space_adventure():
             return True
         return False
     
-    def game_over():
-        over = True
-        while over:
-            global SCORE_SPACE_ADVENTURE
-            screen.fill((255,255,255))
-            screen.blit(go_img,(0,0))
-            score_font = pygame.font.SysFont(None,60)
-            score_img = score_font.render('Score:'+str(SCORE_SPACE_ADVENTURE),True,(255,255,255))
-            screen.blit(score_img,(210,40))
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    over=False
-            
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_w:
-                        SCORE_SPACE_ADVENTURE = 0
-                        space_adventure()
-                        over = False
-                    if event.key == pygame.K_q:
-                        over = False
-                        over=False
-            pygame.display.update()
-    
-    
     #Game Loop
     while running:
         screen.blit(bg_img,(0,0))
@@ -159,11 +138,12 @@ def space_adventure():
                     explosion_sound.play()
                     pygame. mixer. music. stop()
                     pygame.time.delay(1500)
-                    game_over()
                     pygame.display.update()
         if(powerUp()):
             GAME_VEL = GAME_VEL/2           
         GAME_VEL+=SCORE_SPACE_ADVENTURE/1000000
         pygame.display.update()
+    print(SCORE_SPACE_ADVENTURE)
+    return SCORE_SPACE_ADVENTURE
 if __name__=='__main__':
     game_start()

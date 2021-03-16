@@ -1,28 +1,27 @@
 import pygame
 from pygame import mixer
-pygame.init()
-pygame.display.set_caption("Game Menu")
 class menu_obj:
     def __init__(self,img,x,y):
         self.img = img
         self.x = x
         self.y = y
 
-def menu():
+def menu(highscore_list):
+    pygame.init()
+    pygame.display.set_caption("Space Adventure Menu")
     WIDTH = 1500
     HEIGHT = 1000
     screen = pygame.display.set_mode((WIDTH,HEIGHT))
-    bg = menu_obj(pygame.transform.scale(pygame.image.load('bg.jpg'),(WIDTH,HEIGHT)),0,0)
+    bg = menu_obj(pygame.transform.scale(pygame.image.load('space_adventure/bg.jpg'),(WIDTH,HEIGHT)),0,0)
     font = pygame.font.Font('freesansbold.ttf', 50)
     font_play = font.render('PLAY', True, (255,255,255))
     font_highscore = font.render('HIGHSCORES', True, (255,255,255))
     font_quit = font.render('QUIT', True, (255,255,255))
     running = True
-    highscore_state = False
-    highscore_list = [1000,2000] #needs to updated after sucessful completion of 1 game
+    highscore_state = False #needs to updated after sucessful completion of 1 game
 
     #Background music
-    mixer.music.load('menu_bg_sound.wav')
+    mixer.music.load('space_adventure/menu_bg_sound.wav')
     mixer.music.play(-1)
     def highscore():    #display highscores from highscores list
         string = ""
@@ -33,9 +32,6 @@ def menu():
             screen.blit(font_score,(WIDTH/2+100,h))
             y+=1
             h+=70
-    
-    def play():     #link map here
-        pass
     
     while running:
         screen.blit(bg.img,(0,0))
@@ -61,18 +57,18 @@ def menu():
         
         #Handle clicks
         if WIDTH/10 <= mouse_clk_pos[0] <= WIDTH/10+400 and HEIGHT/10+240 <= mouse_clk_pos[1] <= HEIGHT/10+70+240: #handleclick on quit button
-            running = False
+            return False
         if WIDTH/10 <= mouse_clk_pos[0] <= WIDTH/10+400 and HEIGHT/10+120 <= mouse_clk_pos[1] <= HEIGHT/10+70+120:  #handleclick on highscore button
             highscore_state = True
         if(highscore_state):
             highscore()
         if WIDTH/10 <= mouse_clk_pos[0] <= WIDTH/10+400 and HEIGHT/10 <= mouse_clk_pos[1] <= HEIGHT/10+70:  #handleclick on play button
-            play()
+            return True
         screen.blit(font_play,(WIDTH/10+50,HEIGHT/10+10))
         screen.blit(font_highscore,(WIDTH/10+50,HEIGHT/10+130))
         screen.blit(font_quit,(WIDTH/10+50,HEIGHT/10+250))
         pygame.display.update()
         
 if __name__=='__main__':
-    menu()
+    menu([1000,2000])
     

@@ -7,6 +7,7 @@ from PIL import Image
 from Card_Shop import Shop
 from Card_Battle import Battle
 from Car_Racing_Game import Car_Racing_Game
+from space_adventure import space_adventure_menu
 from space_adventure import space_adventure
 
 pygame.init()
@@ -66,6 +67,8 @@ for i in range(len(Map.Map)):
 		break
 card_deck=[]
 coin=3
+kills=0
+space_adventure_highscores=[]
 
 screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
 
@@ -173,15 +176,29 @@ while running:
 			if(coin>0):
 				coin-=1
 		elif(switch==2):
-			l=Battle.Run_Battle(card_deck,screen)
+			l=Battle.Run_Battle(card_deck,screen,kills)
 			card_deck=l[0]
 			if(l[1]):
 				coin+=1
+				kills+=1
 		elif(switch==3):
 			car_racing=Car_Racing_Game.CarRacing()
 			car_racing.racing_window()
 		elif(switch==4):
-			space_adventure.game_start()
+			if space_adventure_menu.menu(space_adventure_highscores):
+				score=space_adventure.game_start()
+				if(type(score)==int):
+					if(len(space_adventure_highscores)<5):
+						space_adventure_highscores.append(score)
+						space_adventure_highscores.sort(reverse=True)
+					else:
+						for i in space_adventure_highscores:
+							if(i<score):
+								space_adventure_highscores.append(score)
+						if(len(space_adventure_highscores)>5):
+							space_adventure_highscores.sort(reverse=True)
+							space_adventure_highscores=space_adventure_highscores[:5]
+		
 		screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
 		mixer.music.load("Carnival_music.wav")
 		mixer.music.set_volume(1)

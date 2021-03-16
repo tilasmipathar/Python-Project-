@@ -89,7 +89,9 @@ def Run_Shop(screen,coin):
 					screen.blit(j,(cardX[i]+card_image[i].get_width()+10*width/1920,cardY[i]+height_displacement+10*width/1920))
 					height_displacement+=48*width/1920
 			screen.blit(pygame.image.load("Card_Images/info_adjusted.png"),(0,0))
-			screen.blit(body.render("Coins: "+str(coin),True,(0,0,0)),(10*width/1920,10*width/1920))	
+			screen.blit(body.render("Coins: "+str(coin),True,(0,0,0)),(10*width/1920,10*width/1920))
+			for i in range(3):
+				screen.blit(heading.render(str(i+1),True,(0,0,0)),(width*(i+1)/4,cardY[i]-60*width/1920))	
 			
 			if(cardY[choice-1]<height+8 and cardY[choice-1]<height-8):
 				start_ticks=pygame.time.get_ticks()

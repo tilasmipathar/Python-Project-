@@ -26,7 +26,7 @@ def Create_opponent():
 	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png"),2*width/3-(pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png")).get_width(),2*height/3-(pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png")).get_width()/2))
 	return deck
 
-def Run_Battle(card_deck,screen):
+def Run_Battle(card_deck,screen,kills):
 		
 	mixer.init()
 	mixer.music.load("Card_Battle/Battle.wav")
@@ -202,6 +202,8 @@ def Run_Battle(card_deck,screen):
 				for j in body_render_oppo[i]:
 					screen.blit(j,(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width()+10*width/1920,oppo_deck[i].cardY+10*width/1920+height_displacement))
 					height_displacement+=48*width/1920
+			screen.blit(pygame.image.load("Card_Images/info_adjusted.png"),(0,0))
+			screen.blit(body.render("Kills: "+str(kills),True,(0,0,0)),(10*width/1920,10*width/1920))
 			
 			Break=True
 			for i in oppo_deck:
