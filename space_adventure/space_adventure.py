@@ -4,22 +4,24 @@ from pygame import mixer
 SCORE_SPACE_ADVENTURE = 0
 pygame.init()
 def game_start():
-        start = True
-        screen = pygame.display.set_mode((600,800))
-        while start:
-            gs_img =pygame.image.load('space_adventure/startgame.png')
-            screen.blit(gs_img,(0,0))
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    start=False
+    mixer.music.load('space_adventure/bgsound.wav')
+    mixer.music.play(-1)
+    start = True
+    screen = pygame.display.set_mode((600,800))
+    while start:
+        gs_img =pygame.image.load('space_adventure/startgame.png')
+        screen.blit(gs_img,(0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                start=False
             
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_w:
-                        space_adventure()
-                        start = False
-                    if event.key == pygame.K_q:
-                        start = False
-            pygame.display.update()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    space_adventure()
+                    start = False
+                if event.key == pygame.K_q:
+                    start = False
+        pygame.display.update()
 def space_adventure():
     screen = pygame.display.set_mode((600,800))
     WIDTH = 600
@@ -54,10 +56,6 @@ def space_adventure():
 
     #Background Image
     bg_img = pygame.image.load('space_adventure/background.png')
-
-    #Background Music
-    mixer.music.load('space_adventure/bgsound.wav')
-    mixer.music.play(-1)
 
     #Game Over Image
     go_img = pygame.image.load('space_adventure/gameover.png')

@@ -1,6 +1,7 @@
 import random
 import pygame
 from PIL import Image
+from pygame import mixer
 
 pygame.init()
 
@@ -26,6 +27,12 @@ def Create_opponent():
 	return deck
 
 def Run_Battle(card_deck,screen):
+		
+	mixer.init()
+	mixer.music.load("Card_Battle/Battle.wav")
+	mixer.music.set_volume(1)
+	mixer.music.play()
+	
 	pygame.display.set_caption("Card Battle")#Window name
 	
 	card_width,card_height=(int(224*width/1920),int(224*width/1920))

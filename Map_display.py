@@ -2,6 +2,7 @@ import Map
 import pygame
 import random
 import math
+from pygame import mixer
 from PIL import Image
 from Card_Shop import Shop
 from Card_Battle import Battle
@@ -9,6 +10,10 @@ from Car_Racing_Game import Car_Racing_Game
 from space_adventure import space_adventure
 
 pygame.init()
+mixer.init()
+mixer.music.load("Carnival_music.wav")
+mixer.music.set_volume(1)
+mixer.music.play()
 
 pygame.display.set_caption("Virtual Carnival")
 
@@ -76,22 +81,22 @@ while running:
 		if event.type==pygame.QUIT:
 			running=False
 	pressed_keys=pygame.key.get_pressed()
-	if pressed_keys[pygame.K_UP] and playerY-length_of_tile/16>=0 and (not Map.Map[int((playerY-length_of_tile/16)//length_of_tile)][int(playerX//length_of_tile)]==0):
+	if pressed_keys[pygame.K_UP] and playerY-displacement*math.sqrt(2)>=0 and (not Map.Map[int((playerY-length_of_tile/16)//length_of_tile)][int(playerX//length_of_tile)]==0):
 		if(not (pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_RIGHT])):
 			playerY-=displacement*math.sqrt(2)
 		else:
 			playerY-=displacement
-	if pressed_keys[pygame.K_DOWN] and playerY+length_of_tile/16<size_of_map*length_of_tile and (not Map.Map[int((playerY+length_of_tile/16)//length_of_tile)][int(playerX//length_of_tile)]==0):
+	if pressed_keys[pygame.K_DOWN] and playerY+displacement*math.sqrt(2)<size_of_map*length_of_tile and (not Map.Map[int((playerY+length_of_tile/16)//length_of_tile)][int(playerX//length_of_tile)]==0):
 		if(not (pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_RIGHT])):
 			playerY+=displacement*math.sqrt(2)
 		else:
 			playerY+=displacement
-	if pressed_keys[pygame.K_LEFT] and playerX-length_of_tile/16>=0 and (not Map.Map[int(playerY//length_of_tile)][int((playerX-length_of_tile/16)//length_of_tile)]==0):
+	if pressed_keys[pygame.K_LEFT] and playerX-displacement*math.sqrt(2)>=0 and (not Map.Map[int(playerY//length_of_tile)][int((playerX-length_of_tile/16)//length_of_tile)]==0):
 		if(not (pressed_keys[pygame.K_UP] or pressed_keys[pygame.K_DOWN])):
 			playerX-=displacement*math.sqrt(2)
 		else:
 			playerX-=displacement
-	if pressed_keys[pygame.K_RIGHT] and playerX+length_of_tile/16<size_of_map*length_of_tile*2 and (not Map.Map[int(playerY//length_of_tile)][int((playerX+length_of_tile/16)//length_of_tile)]==0):
+	if pressed_keys[pygame.K_RIGHT] and playerX+displacement*math.sqrt(2)<size_of_map*length_of_tile*2 and (not Map.Map[int(playerY//length_of_tile)][int((playerX+length_of_tile/16)//length_of_tile)]==0):
 		if(not (pressed_keys[pygame.K_UP] or pressed_keys[pygame.K_DOWN])):
 			playerX+=displacement*math.sqrt(2)
 		else:
@@ -160,10 +165,12 @@ while running:
 		elif(switch==3):
 			car_racing=Car_Racing_Game.CarRacing()
 			car_racing.racing_window()
-			screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
 		elif(switch==4):
 			space_adventure.game_start()
-			screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
+		screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
+		mixer.music.load("Carnival_music.wav")
+		mixer.music.set_volume(1)
+		mixer.music.play()
 	
 	pygame.display.set_caption("Virtual Carnival")
 	

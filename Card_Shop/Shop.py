@@ -1,6 +1,7 @@
 import random
 import pygame
 from PIL import Image
+from pygame import mixer
 
 pygame.init()
 	
@@ -19,6 +20,11 @@ class Card:
 
 def Run_Shop(screen,coin):
 	pygame.display.set_caption("Card Emporium")#Window name
+	
+	mixer.init()
+	mixer.music.load("Card_Shop/Shop.wav")
+	mixer.music.set_volume(1)
+	mixer.music.play()
 	
 	card_width,card_height=(Image.open("Card_Images/0_adjusted.png")).size
 	card_type=[]
