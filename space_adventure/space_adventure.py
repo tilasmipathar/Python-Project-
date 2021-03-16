@@ -61,8 +61,6 @@ def space_adventure():
     #Background Image
     bg_img = pygame.image.load('space_adventure/background.png')
 
-    #Game Over Image
-    go_img = pygame.image.load('space_adventure/gameover.png')
     #Print Score
     score_font = pygame.font.SysFont(None,48)
 
