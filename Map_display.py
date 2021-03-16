@@ -24,14 +24,29 @@ size_of_map=15
 no_of_games=4
 Map.Map_Gen(size_of_map)
 Mini_Game_Pos=[]
+Game_Frequency=[]
+Total_Game_Frequency=0
+for i in range(no_of_games):
+	Game_Frequency.append(1)
+	Total_Game_Frequency+=1
 for i in Map.Map:
-	l=[]
+	lst=[]
 	for j in i:
 		if(j==1):
-			l.append(int(random.random()*no_of_games)+1)
+			r=random.random()
+			cf=0
+			for k in range(no_of_games):
+				cf+=Game_Frequency[k]
+				if(r<=cf/Total_Game_Frequency):
+					lst.append(k+1)
+					for l in range(no_of_games):
+						if(not l==k):
+							Game_Frequency[l]+=1
+							Total_Game_Frequency+=1
+					break
 		else:
-			l.append(0)
-	Mini_Game_Pos.append(l)
+			lst.append(0)
+	Mini_Game_Pos.append(lst)
 x=0
 y=0
 length_of_tile=infoObject.current_w//(size_of_map*2)
