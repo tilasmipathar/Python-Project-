@@ -6,10 +6,10 @@ pygame.mixer.init()
 screensize = (600, 350)
 
 # images
-pygame.display.set_caption("Block Breaker")
-icon = pygame.image.load('block breaker.png')
+pygame.display.set_caption("Brick_Breaker/Brick Breaker")
+icon = pygame.image.load('Brick_Breaker/brick breaker.png')
 pygame.display.set_icon(icon)
-background = pygame.image.load("background.jfif")
+background = pygame.image.load("Brick_Breaker/background.jfif")
 
 # colours
 BRICK_COLOUR = (255, 94, 94)
@@ -42,14 +42,14 @@ GAME_OVER = 3
 LEVEL_WIN = 4
 
 # sounds
-paddle_sound = pygame.mixer.Sound("paddle.mp3")
-brick_sound = pygame.mixer.Sound("brick.mp3")
-ball_bounce_sound = pygame.mixer.Sound("bounce.mp3")
+paddle_sound = pygame.mixer.Sound("Brick_Breaker/paddle.wav")
+brick_sound = pygame.mixer.Sound("Brick_Breaker/brick.wav")
+ball_bounce_sound = pygame.mixer.Sound("Brick_Breaker/bounce.wav")
 
 # game screen
 game_y = 60
 
-class block_breaker():
+class brick_breaker():
 
     def __init__(self):
         # screen
@@ -237,4 +237,4 @@ class block_breaker():
             pygame.display.update()
 
 if __name__ == "__main__":
-    block_breaker().screen_run()
+    brick_breaker().screen_run()

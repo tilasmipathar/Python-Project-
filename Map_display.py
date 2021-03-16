@@ -9,6 +9,7 @@ from Card_Battle import Battle
 from Car_Racing_Game import Car_Racing_Game
 from space_adventure import space_adventure_menu
 from space_adventure import space_adventure
+from Brick_Breaker import Brick_Breaker
 
 pygame.init()
 mixer.init()
@@ -22,7 +23,7 @@ infoObject = pygame.display.Info()
 
 #Initialization
 size_of_map=15
-no_of_games=4
+no_of_games=5
 Map.Map_Gen(size_of_map)
 Mini_Game_Pos=[]
 Game_Frequency=[]
@@ -198,6 +199,8 @@ while running:
 						if(len(space_adventure_highscores)>5):
 							space_adventure_highscores.sort(reverse=True)
 							space_adventure_highscores=space_adventure_highscores[:5]
+		elif(switch==5):
+			Brick_Breaker.brick_breaker().screen_run()
 		
 		screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
 		mixer.music.load("Carnival_music.wav")
