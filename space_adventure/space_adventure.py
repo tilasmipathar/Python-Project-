@@ -5,13 +5,13 @@ SCORE_SPACE_ADVENTURE = 0
 pygame.init()
 def game_start():
         start = True
+        screen = pygame.display.set_mode((600,800))
         while start:
-            screen = pygame.display.set_mode((600,800))
-            gs_img =pygame.image.load('startgame.png')
+            gs_img =pygame.image.load('space_adventure/startgame.png')
             screen.blit(gs_img,(0,0))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    quit()
+                    start=False
             
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_w:
@@ -36,31 +36,31 @@ def space_adventure():
 
     #Icon and Title
     pygame.display.set_caption("Space Adventure")
-    icon = pygame.image.load('icon.png')
+    icon = pygame.image.load('space_adventure/icon.png')
     pygame.display.set_icon(icon)
 
     #Player
-    player1 = obj(268,650,pygame.image.load('player.png'),0,0)
+    player1 = obj(268,650,pygame.image.load('space_adventure/player.png'),0,0)
 
     #PowerUP
-    power_up = obj(268,650,pygame.image.load('down.png'),0,0)
+    power_up = obj(268,650,pygame.image.load('space_adventure/down.png'),0,0)
 
     #Asteroid
     asteroid_list = []
-    asteroid_list.append(obj(268,16,pygame.image.load('asteroid.png'),0,0))
-    asteroid_list.append(obj(60,16,pygame.image.load('asteroid.png'),0,0))
-    asteroid_list.append( obj(WIDTH-60,16,pygame.image.load('asteroid.png'),0,0))
-    asteroid_list.append(obj(164,16,pygame.image.load('asteroid.png'),0,0))
+    asteroid_list.append(obj(268,16,pygame.image.load('space_adventure/asteroid.png'),0,0))
+    asteroid_list.append(obj(60,16,pygame.image.load('space_adventure/asteroid.png'),0,0))
+    asteroid_list.append( obj(WIDTH-60,16,pygame.image.load('space_adventure/asteroid.png'),0,0))
+    asteroid_list.append(obj(164,16,pygame.image.load('space_adventure/asteroid.png'),0,0))
 
     #Background Image
-    bg_img = pygame.image.load('background.png')
+    bg_img = pygame.image.load('space_adventure/background.png')
 
     #Background Music
-    mixer.music.load('bgsound.wav')
+    mixer.music.load('space_adventure/bgsound.wav')
     mixer.music.play(-1)
 
     #Game Over Image
-    go_img = pygame.image.load('gameover.png')
+    go_img = pygame.image.load('space_adventure/gameover.png')
     #Print Score
     score_font = pygame.font.SysFont(None,48)
 
@@ -106,7 +106,7 @@ def space_adventure():
             screen.blit(power_up.img,(asteroid_list[0].x,power_up.y))
             if(player1.x >= asteroid_list[0].x-64 and player1.x <= asteroid_list[0].x +64):
                 SCORE_SPACE_ADVENTURE+=4
-                mixer.Sound('powerup.wav').play()
+                mixer.Sound('space_adventure/powerup.wav').play()
                 return True
 
     
@@ -126,7 +126,7 @@ def space_adventure():
             screen.blit(score_img,(210,40))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    quit()
+                    over=False
             
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_w:
@@ -135,7 +135,7 @@ def space_adventure():
                         over = False
                     if event.key == pygame.K_q:
                         over = False
-                        quit()
+                        over=False
             pygame.display.update()
     
     
@@ -157,7 +157,7 @@ def space_adventure():
             if collision(asteroid_ele,player1):
                     running = False
                     GAME_VEL = 0
-                    explosion_sound = mixer.Sound('explosion.wav')
+                    explosion_sound = mixer.Sound('space_adventure/explosion.wav')
                     explosion_sound.play()
                     pygame. mixer. music. stop()
                     pygame.time.delay(1500)

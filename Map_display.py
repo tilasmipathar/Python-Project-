@@ -6,6 +6,7 @@ from PIL import Image
 from Card_Shop import Shop
 from Card_Battle import Battle
 from Car_Racing_Game import Car_Racing_Game
+from space_adventure import space_adventure
 
 pygame.init()
 
@@ -15,7 +16,7 @@ infoObject = pygame.display.Info()
 
 #Initialization
 size_of_map=15
-no_of_games=3
+no_of_games=4
 Map.Map_Gen(size_of_map)
 Mini_Game_Pos=[]
 for i in Map.Map:
@@ -157,9 +158,12 @@ while running:
 			if(l[1]):
 				coin+=1
 		elif(switch==3):
-    			car_racing=Car_Racing_Game.CarRacing()
-    			car_racing.racing_window()
-    			screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
+			car_racing=Car_Racing_Game.CarRacing()
+			car_racing.racing_window()
+			screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
+		elif(switch==4):
+			space_adventure.game_start()
+			screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_of_tile))
 	
 	pygame.display.set_caption("Virtual Carnival")
 	
