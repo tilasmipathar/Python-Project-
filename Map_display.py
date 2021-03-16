@@ -32,6 +32,7 @@ length_of_tile=infoObject.current_w//(size_of_map*2)
 length_of_border=length_of_tile//8
 playerX=0
 playerY=0
+displacement=length_of_tile/16*length_of_tile*size_of_map/960
 UsedX=size_of_map*2
 UsedY=size_of_map
 for i in range(len(Map.Map)):
@@ -52,6 +53,11 @@ screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_
 ((Image.open("carousel.png")).resize((length_of_tile,length_of_tile))).save("carousel_adjusted.png")
 ((Image.open("map_mud.jpg")).resize((length_of_border,length_of_border))).save("map_mud_adjusted.jpg")
 ((Image.open("player.png")).resize((length_of_tile,length_of_tile))).save("player_adjusted.png")
+((Image.open("Card_Images/0.png")).resize((int(224*length_of_tile*size_of_map/960),int(224*length_of_tile*size_of_map/960)))).save("Card_Images/0_adjusted.png")
+((Image.open("Card_Images/1.png")).resize((int(224*length_of_tile*size_of_map/960),int(224*length_of_tile*size_of_map/960)))).save("Card_Images/1_adjusted.png")
+((Image.open("Card_Images/2.png")).resize((int(224*length_of_tile*size_of_map/960),int(224*length_of_tile*size_of_map/960)))).save("Card_Images/2_adjusted.png")
+((Image.open("Card_Images/back.png")).resize((length_of_tile*size_of_map*2,length_of_tile*size_of_map))).save("Card_Images/back_adjusted.png")
+((Image.open("Card_Images/info.png")).resize((int(224*length_of_tile*size_of_map/960),int(224*length_of_tile*size_of_map/960)))).save("Card_Images/info_adjusted.png")
 Grass=pygame.image.load("map_Grass_adjusted.png")
 Asphalt=pygame.image.load("map_asphalt_adjusted.jpg")
 POI=pygame.image.load("carousel_adjusted.png")
@@ -71,24 +77,24 @@ while running:
 	pressed_keys=pygame.key.get_pressed()
 	if pressed_keys[pygame.K_UP] and playerY-length_of_tile/16>=0 and (not Map.Map[int((playerY-length_of_tile/16)//length_of_tile)][int(playerX//length_of_tile)]==0):
 		if(not (pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_RIGHT])):
-			playerY-=length_of_tile/16*math.sqrt(2)
+			playerY-=displacement*math.sqrt(2)
 		else:
-			playerY-=length_of_tile/16
+			playerY-=displacement
 	if pressed_keys[pygame.K_DOWN] and playerY+length_of_tile/16<size_of_map*length_of_tile and (not Map.Map[int((playerY+length_of_tile/16)//length_of_tile)][int(playerX//length_of_tile)]==0):
 		if(not (pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_RIGHT])):
-			playerY+=length_of_tile/16*math.sqrt(2)
+			playerY+=displacement*math.sqrt(2)
 		else:
-			playerY+=length_of_tile/16
+			playerY+=displacement
 	if pressed_keys[pygame.K_LEFT] and playerX-length_of_tile/16>=0 and (not Map.Map[int(playerY//length_of_tile)][int((playerX-length_of_tile/16)//length_of_tile)]==0):
 		if(not (pressed_keys[pygame.K_UP] or pressed_keys[pygame.K_DOWN])):
-			playerX-=length_of_tile/16*math.sqrt(2)
+			playerX-=displacement*math.sqrt(2)
 		else:
-			playerX-=length_of_tile/16
+			playerX-=displacement
 	if pressed_keys[pygame.K_RIGHT] and playerX+length_of_tile/16<size_of_map*length_of_tile*2 and (not Map.Map[int(playerY//length_of_tile)][int((playerX+length_of_tile/16)//length_of_tile)]==0):
 		if(not (pressed_keys[pygame.K_UP] or pressed_keys[pygame.K_DOWN])):
-			playerX+=length_of_tile/16*math.sqrt(2)
+			playerX+=displacement*math.sqrt(2)
 		else:
-			playerX+=length_of_tile/16
+			playerX+=displacement
 	
 	disp_x=0
 	disp_y=0

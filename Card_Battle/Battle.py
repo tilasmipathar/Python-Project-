@@ -20,18 +20,18 @@ class Card:
 def Create_opponent():
 	deck=[]
 	card_type=int(3*random.random())
-	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load("Card_Battle/"+str(card_type)+".png"),2*width/3-(pygame.image.load("Card_Battle/"+str(card_type)+".png")).get_width(),height/3-(pygame.image.load("Card_Battle/"+str(card_type)+".png")).get_width()/2))
+	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png"),2*width/3-(pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png")).get_width(),height/3-(pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png")).get_width()/2))
 	card_type=int(3*random.random())
-	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load("Card_Battle/"+str(card_type)+".png"),2*width/3-(pygame.image.load("Card_Battle/"+str(card_type)+".png")).get_width(),2*height/3-(pygame.image.load("Card_Battle/"+str(card_type)+".png")).get_width()/2))
+	deck.append(Card(card_type,int(90*random.random())+1,int(90*random.random())+1,pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png"),2*width/3-(pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png")).get_width(),2*height/3-(pygame.image.load("Card_Images/"+str(card_type)+"_adjusted.png")).get_width()/2))
 	return deck
 
 def Run_Battle(card_deck,screen):
 	pygame.display.set_caption("Card Battle")#Window name
 	
-	card_width,card_height=(Image.open("Card_Battle/"+"0.png")).size
+	card_width,card_height=(int(224*width/1920),int(224*width/1920))
 	
-	heading=pygame.font.Font("Card_Battle/"+"OldLondon.ttf",64)
-	body=pygame.font.Font("Card_Battle/"+"Seagram.ttf",24)
+	heading=pygame.font.Font("Card_Images/"+"OldLondon.ttf",int(64*width/1920))
+	body=pygame.font.Font("Card_Images/"+"Seagram.ttf",int(24*width/1920))
 	heading_render=heading.render("CARD BATTLE",True,(0,0,0))
 	
 	clock=pygame.time.Clock()
@@ -48,8 +48,7 @@ def Run_Battle(card_deck,screen):
 	super_mult=1.25
 	under_mult=0.75
 	
-	((Image.open("Card_Battle/"+"back.png")).resize((int(width),int(height)))).save("Card_Battle/"+"back_adjusted.png")
-	background=pygame.image.load("Card_Battle/"+"back_adjusted.png")
+	background=pygame.image.load("Card_Images/"+"back_adjusted.png")
 	
 	random.shuffle(card_deck)
 	for i in range(min(2,len(card_deck))):
@@ -115,8 +114,8 @@ def Run_Battle(card_deck,screen):
 			if((not choice1==0)and(not choice2==0)):
 				if(player_turn):
 					if(attack_start):
-						card_deck[choice1-1].cardX+=16
-						if(card_deck[choice1-1].cardX+card_width*2+16>=oppo_deck[choice1-1].cardX):
+						card_deck[choice1-1].cardX+=16*width/1920
+						if(card_deck[choice1-1].cardX+card_width*2+16*width/1920>=oppo_deck[choice1-1].cardX):
 							attack_start=False
 					else:
 						if(disp_max==0):
@@ -132,14 +131,14 @@ def Run_Battle(card_deck,screen):
 							if(oppo_deck[choice2-1].card_def<0):
 								oppo_deck[choice2-1].card_def=0
 							
-						card_deck[choice1-1].cardX-=8
+						card_deck[choice1-1].cardX-=8*width/1920
 						if(card_return):
-							oppo_deck[choice2-1].cardX-=4
+							oppo_deck[choice2-1].cardX-=4*width/1920
 						else:
-							oppo_deck[choice2-1].cardX+=4
+							oppo_deck[choice2-1].cardX+=4*width/1920
 						if(card_deck[choice1-1].cardX-width/3+card_width<=disp_max/2 and oppo_deck[choice2-1].card_def>0):
 							card_return=True
-						if(card_deck[choice1-1].cardX==width/3-card_width):
+						if(card_deck[choice1-1].cardX<=width/3-card_width):
 							attack_start=True
 							player_turn=False
 							card_return=False
@@ -148,8 +147,8 @@ def Run_Battle(card_deck,screen):
 							choice2=0
 				else:
 					if(attack_start):
-						oppo_deck[choice1-1].cardX-=16
-						if(oppo_deck[choice1-1].cardX-16<=card_deck[choice1-1].cardX+card_width*2):
+						oppo_deck[choice1-1].cardX-=16*width/1920
+						if(oppo_deck[choice1-1].cardX-16*width/1920<=card_deck[choice1-1].cardX+card_width*2):
 							attack_start=False
 					else:
 						if(disp_max==0):
@@ -167,12 +166,12 @@ def Run_Battle(card_deck,screen):
 							
 						oppo_deck[choice1-1].cardX+=8
 						if(card_return):
-							card_deck[choice2-1].cardX+=4
+							card_deck[choice2-1].cardX+=4*width/1920
 						else:
-							card_deck[choice2-1].cardX-=4
+							card_deck[choice2-1].cardX-=4*width/1920
 						if(2*width/3-oppo_deck[choice1-1].cardX-card_width<=disp_max/2 and card_deck[choice2-1].card_def>0):
 							card_return=True
-						if(oppo_deck[choice1-1].cardX==2*width/3-card_width):
+						if(oppo_deck[choice1-1].cardX>=2*width/3-card_width):
 							attack_start=True
 							player_turn=True
 							card_return=False
@@ -181,21 +180,21 @@ def Run_Battle(card_deck,screen):
 							choice2=0
 			   
 			screen.blit(background,(0,0));
-			screen.blit(heading_render,(width/2-heading_render.get_width()/2,10))
+			screen.blit(heading_render,(width/2-heading_render.get_width()/2,10*width/1920))
 			for i in range(0,min(2,len(card_deck))):
 				screen.blit(card_deck[i].card_image,(card_deck[i].cardX,card_deck[i].cardY))
-				screen.blit(pygame.image.load("Card_Battle/"+"info.png"),(card_deck[i].cardX+card_deck[i].card_image.get_width(),card_deck[i].cardY))
+				screen.blit(pygame.image.load("Card_Images/"+"info_adjusted.png"),(card_deck[i].cardX+card_deck[i].card_image.get_width(),card_deck[i].cardY))
 				height_displacement=0
 				for j in body_render[i]:
-					screen.blit(j,(card_deck[i].cardX+card_deck[i].card_image.get_width()+10,card_deck[i].cardY+10+height_displacement))
-					height_displacement+=48
+					screen.blit(j,(card_deck[i].cardX+card_deck[i].card_image.get_width()+10*width/1920,card_deck[i].cardY+10*width/1920+height_displacement))
+					height_displacement+=48*width/1920
 			for i in range(0,2):
 				screen.blit(oppo_deck[i].card_image,(oppo_deck[i].cardX,oppo_deck[i].cardY))
-				screen.blit(pygame.image.load("Card_Battle/"+"info.png"),(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width(),oppo_deck[i].cardY))
+				screen.blit(pygame.image.load("Card_Images/"+"info_adjusted.png"),(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width(),oppo_deck[i].cardY))
 				height_displacement=0
 				for j in body_render_oppo[i]:
-					screen.blit(j,(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width()+10,oppo_deck[i].cardY+10+height_displacement))
-					height_displacement+=48
+					screen.blit(j,(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width()+10*width/1920,oppo_deck[i].cardY+10*width/1920+height_displacement))
+					height_displacement+=48*width/1920
 			
 			Break=True
 			for i in oppo_deck:
@@ -237,7 +236,7 @@ def Run_Battle(card_deck,screen):
 			
 			screen.blit(background,(0,0));
 			
-			screen.blit(heading_render,(width/2-heading_render.get_width()/2,10))
+			screen.blit(heading_render,(width/2-heading_render.get_width()/2,10*width/1920))
 			screen.blit(text,(width/2-text.get_width()/2,height/2-text.get_height()/2))
 			if(start_ticks==0):
 				start_ticks=pygame.time.get_ticks()
@@ -245,6 +244,3 @@ def Run_Battle(card_deck,screen):
 				break
 			pygame.display.update()
 	return (card_deck,win)
-if __name__=="__main__":
-	card_type=int(3*random.random())
-	Run_Battle([Card(card_type,int(101*random.random()),int(101*random.random()),pygame.image.load(str(card_type)+".png"),2*width/3-(pygame.image.load(str(card_type)+".png")).get_width(),height/3-(pygame.image.load(str(card_type)+".png")).get_width()/2),Card(card_type,int(101*random.random()),int(101*random.random()),pygame.image.load(str(card_type)+".png"),2*width/3-(pygame.image.load(str(card_type)+".png")).get_width(),height/3-(pygame.image.load(str(card_type)+".png")).get_width()/2)])
