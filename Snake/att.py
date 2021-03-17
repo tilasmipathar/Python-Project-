@@ -38,7 +38,8 @@ def menu():
      evnt="exit"
     if event.key==pygame.K_RETURN:
      if evnt=="start":
-      main()
+      if main()==1:
+      	return 1
      elif evnt=="exit":
       return 1
           
