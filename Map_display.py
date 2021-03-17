@@ -83,6 +83,7 @@ screen=pygame.display.set_mode((size_of_map*2*length_of_tile,size_of_map*length_
 ((Image.open("Card_Images/2.png")).resize((int(224*length_of_tile*size_of_map/960),int(224*length_of_tile*size_of_map/960)))).save("Card_Images/2_adjusted.png")
 ((Image.open("Card_Images/back.png")).resize((length_of_tile*size_of_map*2,length_of_tile*size_of_map))).save("Card_Images/back_adjusted.png")
 ((Image.open("Card_Images/info.png")).resize((int(224*length_of_tile*size_of_map/960),int(224*length_of_tile*size_of_map/960)))).save("Card_Images/info_adjusted.png")
+((Image.open("Card_Images/info.png")).resize((int(56*length_of_tile*size_of_map/960),int(56*length_of_tile*size_of_map/960)))).save("Card_Images/info_adjusted_small.png")
 Grass=pygame.image.load("map_Grass_adjusted.png")
 Asphalt=pygame.image.load("map_asphalt_adjusted.jpg")
 POI=pygame.image.load("carousel_adjusted.png")

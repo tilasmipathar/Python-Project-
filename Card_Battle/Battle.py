@@ -203,7 +203,18 @@ def Run_Battle(card_deck,screen,kills):
 					screen.blit(j,(oppo_deck[i].cardX+oppo_deck[i].card_image.get_width()+10*width/1920,oppo_deck[i].cardY+10*width/1920+height_displacement))
 					height_displacement+=48*width/1920
 			screen.blit(pygame.image.load("Card_Images/info_adjusted.png"),(0,0))
+			
 			screen.blit(body.render("Kills: "+str(kills),True,(0,0,0)),(10*width/1920,10*width/1920))
+			screen.blit(heading.render("Your Deck",True,(0,0,0)),(width/3-card_deck[0].card_image.get_width(),card_deck[0].cardY-60*width/1920))
+			screen.blit(heading.render("Enemy Deck",True,(0,0,0)),(2*width/3-card_deck[0].card_image.get_width(),card_deck[0].cardY-60*width/1920))
+			for i in range(2):
+				number=heading.render(str(i+1),True,(0,0,0))
+				screen.blit(pygame.image.load("Card_Images/"+"info_adjusted_small.png"),(card_deck[i].cardX-56*width/1920,card_deck[i].cardY))
+				screen.blit(number,(card_deck[i].cardX-number.get_width()-10*width/1920,card_deck[i].cardY-10*width/1920))
+			for i in range(2):
+				number=heading.render(str(i+1),True,(0,0,0))
+				screen.blit(pygame.image.load("Card_Images/"+"info_adjusted_small.png"),(oppo_deck[i].cardX+2*oppo_deck[i].card_image.get_width(),oppo_deck[i].cardY))
+				screen.blit(number,(oppo_deck[i].cardX+2*oppo_deck[i].card_image.get_width()+number.get_width(),oppo_deck[i].cardY-10*width/1920))
 			
 			Break=True
 			for i in oppo_deck:
