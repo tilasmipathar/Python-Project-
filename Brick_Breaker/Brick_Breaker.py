@@ -31,7 +31,7 @@ ball_start_y = paddle_start_y - 3 * ball_diameter
 ball_start_x = (screensize[0] / 2) - ball_radius
 
 # brick constants
-brick_height = 11
+brick_height = 10
 brick_width = 40
 
 # state constants
