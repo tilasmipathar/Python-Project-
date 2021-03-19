@@ -2,8 +2,6 @@ import sys,random,time,pygame
 
 pygame.init()
 
-pygame.mixer.init()
-
 apple= pygame.image.load("Snake/apple.png")
 use = pygame.transform.scale(apple,(25,25))
 
@@ -20,12 +18,9 @@ def text_format(message, textFont, textSize, textColor):
  return newText
 
 def menu():
- pygame.mixer.music.load("Snake/music.wav")
- pygame.mixer.music.set_volume(0.1)
- pygame.mixer.music.play()
  global disp
  disp = pygame.display.set_mode((dispX,dispY))
- pygame.display.set_caption('CyberPunk 2077')
+ pygame.display.set_caption('Snake Game')
  evnt="start"
  clock = pygame.time.Clock()
  while 1:
@@ -44,7 +39,7 @@ def menu():
       return 1
           
   disp.fill((0,255,0))
-  title=text_format("CyberPunk 2077 By Srinivas",'comicsans',90,(0,0,0))
+  title=text_format("Snake Game By Srinivas",'comicsans',90,(0,0,0))
   if evnt=="start":
    text_start=text_format("START",'comicsans',75,(255,255,255))
   else:
